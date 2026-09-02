@@ -1,0 +1,3 @@
+0001:01:00.0 Non-Volatile memory controller: Generic NVMe (rev 01)
+		LnkCap:	Port #0, Speed 8GT/s, Width x4, ASPM L1, Exit Latency L1 <64us
+		LnkSta:	Speed 8GT/s, Width x4, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-

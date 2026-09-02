@@ -1,0 +1,10 @@
+# Lab 01 dependencies.
+#
+# The lab itself has none. Every probe reads sysfs and procfs through the
+# standard library, and the schema validator is hand-written rather than
+# jsonschema-based, deliberately: Lab 01 runs on a freshly imaged board before
+# anybody has pip-installed anything, and a bring-up check that cannot run
+# until you have installed something is not a bring-up check.
+#
+# pytest is needed only to run the tests.
+pytest>=7.0

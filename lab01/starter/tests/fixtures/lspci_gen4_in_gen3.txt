@@ -1,0 +1,7 @@
+0001:01:00.0 Non-Volatile memory controller: Sandisk Corp WD Black SN770 (rev 01)
+	Subsystem: Sandisk Corp WD Black SN770
+	Capabilities: [80] Express (v2) Endpoint, MSI 00
+		LnkCap:	Port #0, Speed 16GT/s, Width x4, ASPM L1, Exit Latency L1 <64us
+		LnkCtl:	ASPM L1 Enabled; RCB 64 bytes, Disabled- CommClk+
+		LnkSta:	Speed 8GT/s, Width x4, TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+	Kernel driver in use: nvme
