@@ -23,7 +23,7 @@ All reads use a `root` parameter so tests can inject fake filesystems. When you 
 ## How to Run
 
 ```bash
-cd labs/lab01/solution
+cd labs/lab01/starter
 
 # Install test dependencies
 pip install pytest
@@ -34,11 +34,8 @@ make fixtures
 # Run public tests
 make test
 
-# Run all tests
-make test-all
-
 # Generate the report on the board
-python3 system_report.py --device-id jetson-07 -o system_report.json
+sudo python3 system_report.py --device-id <device-id> -o system_report.json
 ```
 
 The report validates against a JSON schema. Check it before submitting:
