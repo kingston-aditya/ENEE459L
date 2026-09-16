@@ -1,0 +1,44 @@
+{
+    "probe_torch": {
+        "value": "2.14.0+cu126",
+        "source": "import torch",
+        "status": "ok",
+        "version": {
+            "raw": "2.14.0+cu126",
+            "public": "2.14.0",
+            "local": "cu126",
+            "nvidia_build": false
+        },
+        "cuda_available": true,
+        "cuda_version": "12.6",
+        "device_name": "Orin",
+        "diagnosis": "torch is installed and sees the GPU"
+    },
+    "probe_cuda": {
+        "value": "12.6.11",
+        "source": "/usr/local/cuda/version.json",
+        "status": "ok",
+        "line": "12.6"
+    },
+    "probe_opencv": {
+        "value": "4.8.0",
+        "source": "import cv2",
+        "status": "ok",
+        "cuda_devices": 0,
+        "cuda_enabled": false,
+        "detail": "the cv2.cuda namespace exists but reports no devices \u2014 this is a non-CUDA build"
+    },
+    "probe_tensorrt": {
+        "value": "10.3.0",
+        "source": "import tensorrt",
+        "status": "ok",
+        "line": "10.3"
+    },
+    "probe_l4t": {
+        "value": "36.5.0",
+        "source": "/etc/nv_tegra_release",
+        "status": "ok",
+        "line": "36.5",
+        "raw": "# R36 (release), REVISION: 5.0, GCID: 43688277, BOARD: generic, EABI: aarch64, DATE: Fri Jan 16 03:50:45 UTC 2026"
+    }
+}
