@@ -1,0 +1,63 @@
+{
+  "latency": {
+    "base": {
+      "n": 10,
+      "mean": 14.719999999999999,
+      "worst": 16.0,
+      "p50": 14.45,
+      "p95": 15.82,
+      "p99": 15.964,
+      "jitter": 1.370000000000001
+    },
+    "optimized": {
+      "n": 10,
+      "mean": 10.479999999999999,
+      "worst": 11.5,
+      "p50": 10.25,
+      "p95": 11.365,
+      "p99": 11.473,
+      "jitter": 1.1150000000000002
+    },
+    "speedup_p50": {
+      "factor": 1.4097560975609755,
+      "faster": true,
+      "saved_ms": 4.199999999999999
+    }
+  },
+  "deviations": {
+    "max_abs_dev": {
+      "max_abs": 0.03000000000000025,
+      "index": 2,
+      "a": 2.42,
+      "b": 2.45,
+      "n": 10
+    },
+    "max_rel_dev": {
+      "max_rel": 0.4999999999999999,
+      "index": 5,
+      "floored": 0,
+      "denom_min": 0.02,
+      "n": 10
+    },
+    "summary_sentence": "max |a-b| = 0.03 at index 2; max relative = 0.5"
+  },
+  "agreement": {
+    "top1_agreement": {
+      "n": 3,
+      "agree": 3,
+      "disagree": 0,
+      "rate": 1.0,
+      "first_disagreement": null
+    },
+    "decision_margin": {
+      "n": 3,
+      "min": 0.10000000000000009,
+      "median": 1.6,
+      "mean": 1.4666666666666668,
+      "argmin": 1,
+      "below_tol": 0,
+      "safe": true
+    },
+    "decision_sentence": "no decision flips: the smallest margin over 3 inputs is 0.1 and the deviation is 0.03"
+  }
+}
