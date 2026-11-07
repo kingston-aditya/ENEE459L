@@ -5,6 +5,7 @@ from typing import Any, Iterable, Sequence
 from schema import BLACK_MAX, FLAT_SPREAD
 
 import cv2
+import shutil
 import time
 import json
 import numpy as np
@@ -114,37 +115,88 @@ def grab_frame(pipeline: str, warmup_frames: int = 15) -> np.ndarray:
 ############################
 
 def frame_bytes(width: int, height: int, fmt: str) -> int:
-    pass
+    # round, not truncate: 1.25 and 1.5 are exact in binary, but a product
+    # that lands a hair under an integer must still count as that integer.
+    return int(round(width * height * _bytes_per_pixel(fmt)))
 
 
 def bytes_per_second(width: int, height: int, fmt: str, fps: float) -> float:
-    pass
+    return float(frame_bytes(width, height, fmt) * fps)
 
 
 def frame_stats(pixels: Sequence[float] | Iterable[float]) -> dict[str, float]:
-    pass
+    if isinstance(pixels, np.ndarray):
+        values = np.asarray(pixels, dtype=np.float64).ravel()
+    elif isinstance(pixels, Sequence) and not isinstance(pixels, (str, bytes)):
+        values = np.asarray(pixels, dtype=np.float64).ravel()
+    else:
+        values = np.fromiter(pixels, dtype=np.float64)
+    if values.size == 0:
+        raise FrameError("frame_stats needs at least one pixel")
+    lowest = float(values.min())
+    highest = float(values.max())
+    mean = float(values.mean())
+    # The frame is the whole population, so the divisor is N, not N-1.
+    sd = float(values.std(ddof=0))
+    return {
+        "min": lowest,
+        "max": highest,
+        "mean": mean,
+        "spread": highest - lowest,
+        "sd": sd,
+        "samples": float(values.size),
+    }
 
 
 def classify(stats: dict[str, float]) -> tuple[str, str]:
-    pass
+    mean = float(stats["mean"])
+    spread = float(stats["spread"])
+    maximum = float(stats["max"])
+    detail = f"mean {mean:.4f}, spread {spread:.4f}"
+    # Silence first: a dead sensor is not a dark picture. One count in 255
+    # is the smallest thing an 8-bit frame can say.
+    if maximum <= BLACK_MAX:
+        return ("black", f"{detail}. Dead sensor, no signal.")
+    # Signal with no structure: a stuck test pattern or a flat field.
+    if spread < FLAT_SPREAD:
+        return ("flat", f"{detail}. Featureless flat field.")
+    # A real scene that never climbed out of the bottom tenth of the scale.
+    if mean < 0.10:
+        return ("underexposed", f"{detail}. Underexposed room.")
+    return ("scene", f"{detail}. Exposed and structured.")
 
 
 def conversion_bytes(width: int, height: int, src: str, dst: str) -> int:
-    pass
+    # The bus reads every source byte and writes every destination byte.
+    return frame_bytes(width, height, src) + frame_bytes(width, height, dst)
 
 
 def resize_bytes(src_w: int, src_h: int, dst_w: int, dst_h: int,
                  fmt: str) -> int:
-    pass
+    return frame_bytes(src_w, src_h, fmt) + frame_bytes(dst_w, dst_h, fmt)
 
 
 def normalise_bytes(width: int, height: int, channels: int = 3,
                     out_bytes: int = 4) -> int:
-    pass
+    # Read the integer pixels, write the wider tensor. The input element is
+    # one byte; out_bytes is the element width of the float tensor.
+    pixels = width * height * channels
+    return pixels * (1 + out_bytes)
 
 
 def summarise_formats(width: int, height: int) -> list[dict[str, Any]]:
-    pass
+    rgb_bytes = frame_bytes(width, height, "rgb")
+    rows: list[dict[str, Any]] = []
+    for fmt in FORMATS:
+        nbytes = frame_bytes(width, height, fmt)
+        rows.append({
+            "format": fmt,
+            "bytes_per_pixel": _bytes_per_pixel(fmt),
+            "bytes": nbytes,
+            "relative_to_rgb": nbytes / rgb_bytes,
+            "note": FORMAT_NOTES[fmt],
+        })
+    return rows
 
 
 ###############################
@@ -155,6 +207,7 @@ def main(
     image_filename: str = "captured_frame.jpg",
     json_filename: str = "frame_report.json",
     target_fps: float = 30.0,
+    source_image: str | None = None,
 ) -> None:
     out_path = Path(output_dir)
     out_path.mkdir(parents=True, exist_ok=True)
@@ -162,12 +215,16 @@ def main(
     img_path = out_path / image_filename
     json_path = out_path / json_filename
 
-    # 1. Capture frame from hardware
-    pipeline_str = gstreamer_pipeline()
-    frame_bgr = grab_frame(pipeline_str)
-
-    # 2. Save captured image to disk
-    cv2.imwrite(str(img_path), frame_bgr)
+    # 1. Capture frame from hardware, or price a frame already on disk.
+    if source_image:
+        frame_bgr = cv2.imread(source_image)
+        if frame_bgr is None:
+            raise RuntimeError(f"Could not read image {source_image}")
+        shutil.copyfile(source_image, img_path)
+    else:
+        pipeline_str = gstreamer_pipeline()
+        frame_bgr = grab_frame(pipeline_str)
+        cv2.imwrite(str(img_path), frame_bgr)
     height, width, _ = frame_bgr.shape
 
     # 3. Extract normalized luma/grayscale values in [0.0, 1.0] for classification

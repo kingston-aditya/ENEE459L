@@ -1,6 +1,6 @@
 {
     "capture_metadata": {
-        "saved_image_path": "/home/student/Desktop/ENEE459L/lab07/output/captured_frame.jpg",
+        "saved_image_path": "/home/student/ENEE459L/lab07/output/captured_frame.jpg",
         "width": 1920,
         "height": 1080,
         "channels": 3,
@@ -8,13 +8,13 @@
     },
     "frame_analysis": {
         "classification": "scene",
-        "classification_reason": "mean 0.3430, spread 0.9216. Exposed and structured.",
+        "classification_reason": "mean 0.2849, spread 0.8863. Exposed and structured.",
         "stats": {
-            "min": 0.0,
-            "max": 0.9215686321258545,
-            "mean": 0.34295832544143645,
-            "spread": 0.9215686321258545,
-            "sd": 0.08602229872828547,
+            "min": 0.11372549086809158,
+            "max": 1.0,
+            "mean": 0.2848825074102799,
+            "spread": 0.8862745091319084,
+            "sd": 0.16328438930647268,
             "samples": 2073600.0
         }
     },
