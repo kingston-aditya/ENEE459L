@@ -123,29 +123,24 @@ def non_maximum_suppression(magnitude, angle):
     return thinned
 
 def hysteresis_thresholding(img, low_thresh, high_thresh):
-    strong = img >= high_thresh
-    weak = img >= low_thresh
     height, width = img.shape
     out = np.zeros((height, width), dtype=np.uint8)
-    visited = np.zeros((height, width), dtype=bool)
-    ys, xs = np.nonzero(strong)
-    stack = list(zip(ys.tolist(), xs.tolist()))
-    for y, x in stack:
-        visited[y, x] = True
-        out[y, x] = 255
-    while stack:
-        y, x = stack.pop()
-        for dy in (-1, 0, 1):
-            ny = y + dy
-            if ny < 0 or ny >= height:
-                continue
-            for dx in (-1, 0, 1):
-                nx = x + dx
-                if nx < 0 or nx >= width or visited[ny, nx] or not weak[ny, nx]:
-                    continue
-                visited[ny, nx] = True
-                out[ny, nx] = 255
-                stack.append((ny, nx))
+    out[img >= high_thresh] = 255
+    weak_y, weak_x = np.nonzero((img >= low_thresh) & (img < high_thresh))
+    for y, x in zip(weak_y.tolist(), weak_x.tolist()):
+        if y == 0 or x == 0 or y == height - 1 or x == width - 1:
+            continue
+        if (
+            out[y + 1, x - 1] == 255
+            or out[y + 1, x] == 255
+            or out[y + 1, x + 1] == 255
+            or out[y, x - 1] == 255
+            or out[y, x + 1] == 255
+            or out[y - 1, x - 1] == 255
+            or out[y - 1, x] == 255
+            or out[y - 1, x + 1] == 255
+        ):
+            out[y, x] = 255
     return out
 
 def canny_scipy(image_path, output_path="edges_scipy.png", low=20, high=60):
