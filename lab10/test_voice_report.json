@@ -1,0 +1,82 @@
+{
+  "file": "test_voice.wav",
+  "header_consistency": {
+    "agrees": true,
+    "mismatches": [],
+    "duration": {
+      "samples": 441000,
+      "seconds": 10.0,
+      "remainder": 0,
+      "whole": true
+    }
+  },
+  "wav_structure": {
+    "samples": 441000,
+    "block_align": 2,
+    "byte_rate": 88200,
+    "data_bytes": 882000,
+    "header_bytes": 44,
+    "total_bytes": 882044
+  },
+  "level_report": {
+    "peak": 0.05423139133884701,
+    "rms": 0.0028149673784347512,
+    "peak_dbfs": -25.31498506672795,
+    "rms_dbfs": -51.01053267307592,
+    "crest_db": 25.695547606347972,
+    "clipped": 0,
+    "samples": 441000,
+    "clip_rate": 0.0,
+    "silent": false,
+    "too_hot": false,
+    "too_quiet": false,
+    "usable": true
+  },
+  "resolution": {
+    "full_scale_range_db": 96.329598608,
+    "bits_in_use": 11.795,
+    "wasted_bits": 4.205
+  },
+  "stage_e_gaps": {
+    "present": [
+      "sample_rate",
+      "bit_depth",
+      "channels"
+    ],
+    "missing": [
+      "device_name",
+      "capture_gain",
+      "mic_distance_cm",
+      "mic_polar_pattern",
+      "room_acoustic_treatment",
+      "ambient_noise_level",
+      "preamp_model",
+      "filter_highpass_hz",
+      "target_signal_type",
+      "operator_notes"
+    ],
+    "blank": [],
+    "complete": false,
+    "in_header": [
+      "sample_rate",
+      "channels",
+      "bit_depth"
+    ],
+    "hand_written": [
+      "device_name",
+      "capture_gain",
+      "mic_distance_cm",
+      "mic_polar_pattern",
+      "room_acoustic_treatment",
+      "ambient_noise_level",
+      "preamp_model",
+      "filter_highpass_hz",
+      "target_signal_type",
+      "operator_notes"
+    ]
+  },
+  "verdicts": {
+    "level_sentence": "peak -25.31 dBFS, RMS -51.01 dBFS, crest 25.70 dB",
+    "record_sentence": "3 of 13 choices are named; 10 missing (device_name, capture_gain, mic_distance_cm, mic_polar_pattern, room_acoustic_treatment, ambient_noise_level, preamp_model, filter_highpass_hz, target_signal_type, operator_notes)"
+  }
+}
