@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "lab": "lab11",
+  "generated": "2026-11-18T15:22:04.231013+00:00",
+  "device_id": "local-workstation",
+  "audio": {
+    "name": "test_voice.wav",
+    "source": "/home/student/Desktop/ENEE459L/lab11/test_voice.wav",
+    "sha256": "573f99b442b9210fc24a0001eada315cf3ecd2a37ad6db85e3158aa34c9f9286",
+    "sample_rate": 44100,
+    "channels": 1,
+    "bit_depth": 16,
+    "seconds": 10.0,
+    "samples": 441000
+  },
+  "conditions": {
+    "power_mode": "MAXN",
+    "jetpack": "6.0",
+    "trt_version": "8.6.2",
+    "cuda_version": "12.2",
+    "compute_capability": "8.7"
+  },
+  "plan": {
+    "sample_rate": 44100,
+    "block_ms": 10.0,
+    "ring_blocks": 16,
+    "window_s": 1.0,
+    "hop_s": 0.1,
+    "k": 3,
+    "n": 5,
+    "threshold": 0.5,
+    "enter": 0.6,
+    "leave": 0.4,
+    "refractory_s": 1.0,
+    "collar_s": 0.25,
+    "event_s": 0.5,
+    "infer_ms": 5.0,
+    "ft_per_hour_max": 2.0,
+    "stated": {
+      "ring_ms": 160.0,
+      "latency_ms": 805.0,
+      "decisions_per_hour": 36000.0
+    }
+  },
+  "record": null
+}

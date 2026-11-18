@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "lab": "lab11",
+  "generated": "2026-11-18T15:34:16.035365+00:00",
+  "device_id": "local-workstation",
+  "audio": {
+    "name": "test_voice.wav",
+    "source": "/home/student/Desktop/ENEE459L/lab11/test_voice.wav",
+    "sha256": "573f99b442b9210fc24a0001eada315cf3ecd2a37ad6db85e3158aa34c9f9286",
+    "sample_rate": 44100,
+    "channels": 1,
+    "bit_depth": 16,
+    "seconds": 10.0,
+    "samples": 441000
+  },
+  "conditions": {
+    "power_mode": "MAXN",
+    "jetpack": "6.0",
+    "trt_version": "8.6.2",
+    "cuda_version": "12.2",
+    "compute_capability": "8.7"
+  },
+  "plan": {
+    "sample_rate": 44100,
+    "block_ms": 10.0,
+    "ring_blocks": 16,
+    "window_s": 1.0,
+    "hop_s": 0.1,
+    "k": 3,
+    "n": 5,
+    "threshold": 0.6,
+    "enter": 0.6,
+    "leave": 0.4,
+    "refractory_s": 1.0,
+    "collar_s": 0.5,
+    "event_s": 0.5,
+    "infer_ms": 5.0,
+    "ft_per_hour_max": 6.0,
+    "stated": {
+      "ring_ms": 160.0,
+      "latency_ms": 805.0,
+      "decisions_per_hour": 36000.0
+    }
+  },
+  "stream": null,
+  "scores": null,
+  "timing": null,
+  "quiet": null,
+  "events": {
+    "collar_s": 0.5,
+    "predicted_s": [
+      4.9
+    ],
+    "truth_s": [
+      4.800000000000001
+    ],
+    "log": [
+      {
+        "onset_s": 4.9,
+        "index": 49,
+        "score": 0.9647718707172079,
+        "windows": 5
+      }
+    ]
+  },
+  "record": {
+    "match_before": {
+      "matches": [
+        {
+          "truth_s": 4.800000000000001,
+          "predicted_s": 4.7,
+          "delta_s": -0.10000000000000053
+        }
+      ],
+      "hits": 1,
+      "misses": 0,
+      "false_alarms": 0,
+      "collar_s": 0.5
+    },
+    "rates_before": {
+      "recall": 1.0,
+      "false_alarms": 0,
+      "false_alarms_per_hour": 0.0,
+      "seconds": 10.0
+    },
+    "match_after": {
+      "matches": [
+        {
+          "truth_s": 4.800000000000001,
+          "predicted_s": 4.9,
+          "delta_s": 0.09999999999999964
+        }
+      ],
+      "hits": 1,
+      "misses": 0,
+      "false_alarms": 0,
+      "collar_s": 0.5
+    },
+    "rates_after": {
+      "recall": 1.0,
+      "false_alarms": 0,
+      "false_alarms_per_hour": 0.0,
+      "seconds": 10.0
+    },
+    "latency_after": {
+      "count": 1,
+      "mean_ms": 99.99999999999964,
+      "median_ms": 99.99999999999964,
+      "worst_ms": 99.99999999999964
+    },
+    "smoothing_trade": {
+      "rate_before": 0.0,
+      "rate_after": 0.0,
+      "rate_factor": null,
+      "recall_before": 1.0,
+      "recall_after": 1.0,
+      "latency_ms": 200.0
+    },
+    "sentences": {
+      "match": "1 hits, 0 misses and 0 false alarms under a 500 ms collar; recall 1.000",
+      "latency": "1 hits, worst 100 ms, median 100 ms, mean 100 ms",
+      "trade": "0.0 false alarms an hour became 0.0; recall 1.000 to 1.000, so the vote gained 0.000 of it and 200 ms of latency"
+    }
+  }
+}
